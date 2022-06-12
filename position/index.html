@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            /* position: relative; */
+        }
+
+        .element {
+            height: 150px;
+            width: 300px;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .green {
+            background-color: grey;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            opacity: 0, 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        .cookies {
+            background-color: blueviolet;
+            position: fixed;
+            width: 500px;
+            height: 300px;
+            top: 50%;
+            left: 50%;
+            margin: -150px 0 0 -250px;
+            display: none;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+    </style>
+    <title>Document</title>
+
+</head>
+
+<body>
+    <button onclick="alert('work')">press</button>
+
+    <div class="container">
+        <div class="blue element"></div>
+        <div class="red element"></div>
+
+        <div class="green element">
+        </div>
+        <div class="cookies">
+            Вы согласны с использованием Cookies?
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+
+
+        <div class="yellow element"></div>
+    </div>
+
+    <script>
+        function Pavel() {
+            document.querySelector(".green").style.display = "block"
+
+            document.querySelector(".cookies").style.display = "block"
+        }
+        setTimeout(Pavel, 2000)
+
+    </script>
+</body>
+
+</html>

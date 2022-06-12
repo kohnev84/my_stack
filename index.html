@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 class="title_list">Мой стек технологий</h1>
+    <div id="snackbar"><img width="100%" height="100%" ; src="./img/5.gif" alt="sorry" class="magnifier"><audio
+            src="./konferans-alberta-15_z_uk-u_edomleniy.mp3"></audio></div>
+
+    <div class="img-zoom-container">
+
+        <div class="img-stack">
+            <img id="myimage" src="./img/1.png" width="700" height="400">
+            <div id="myresult" class="img-zoom-result"></div>
+        </div>
+    </div>
+
+    <audio id="sound">
+        <source src="./2.mp3" type="audio/mpeg">
+    </audio>
+    <div class="container">
+        <div class="cookies_fon"></div>
+        <div class="cookies">
+            Вы согласны с использованием Cookies?
+            <button id="yes">Yes</button>
+            <button id="no">No</button>
+        </div>
+    </div>
+
+
+    <script>
+        function imageZoom(imgID, resultID) {
+            var img, lens, result, cx, cy;
+            img = document.getElementById(imgID);
+            result = document.getElementById(resultID);
+            /*create lens:*/
+            lens = document.createElement("DIV");
+            lens.setAttribute("class", "img-zoom-lens");
+            /*insert lens:*/
+            img.parentElement.insertBefore(lens, img);
+            /*calculate the ratio between result DIV and lens:*/
+            cx = result.offsetWidth / lens.offsetWidth;
+            cy = result.offsetHeight / lens.offsetHeight;
+            /*set background properties for the result DIV*/
+            result.style.backgroundImage = "url('" + img.src + "')";
+            result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
+            /*execute a function when someone moves the cursor over the image, or the lens:*/
+            lens.addEventListener("mousemove", moveLens);
+            img.addEventListener("mousemove", moveLens);
+            /*and also for touch screens:*/
+            lens.addEventListener("touchmove", moveLens);
+            img.addEventListener("touchmove", moveLens);
+            function moveLens(e) {
+                var pos, x, y;
+                /*prevent any other actions that may occur when moving over the image*/
+                e.preventDefault();
+                /*get the cursor's x and y positions:*/
+                pos = getCursorPos(e);
+                /*calculate the position of the lens:*/
+                x = pos.x - (lens.offsetWidth / 2);
+                y = pos.y - (lens.offsetHeight / 2);
+                /*prevent the lens from being positioned outside the image:*/
+                if (x > img.width - lens.offsetWidth) { x = img.width - lens.offsetWidth; }
+                if (x < 0) { x = 0; }
+                if (y > img.height - lens.offsetHeight) { y = img.height - lens.offsetHeight; }
+                if (y < 0) { y = 0; }
+                /*set the position of the lens:*/
+                lens.style.left = x + "px";
+                lens.style.top = y + "px";
+                /*display what the lens "sees":*/
+                result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+            }
+            function getCursorPos(e) {
+                var a, x = 0, y = 0;
+                e = e || window.event;
+                /*get the x and y positions of the image:*/
+                a = img.getBoundingClientRect();
+                /*calculate the cursor's x and y coordinates, relative to the image:*/
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
+                /*consider any page scrolling:*/
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return { x: x, y: y };
+            }
+        }
+    </script>
+    <script>
+        imageZoom("myimage", "myresult");
+    </script>
+    <script>
+        let flagVisible = false
+        let flag = false
+        var x = document.getElementById("snackbar");
+
+
+        var no_active_delay = 2; // Количество секунд простоя мыши, при котором пользователь считается неактивным
+        var now_no_active = 0; // Текущее количество секунд простоя мыши
+        setInterval("now_no_active++;", 1000); // Каждую секунду увеличиваем количество секунд простоя мыши
+        setInterval("updateChat()", 1000); // Запускаем функцию updateChat() через определённый интервал
+        document.onmousemove = activeUser; // Ставим обработчик на движение курсора мыши
+
+        function activeUser() {
+            now_no_active = 0; // Обнуляем счётчик простоя секунд
+            if (flagVisible === true) {
+                x.className = x.className.replace("show", "none")
+                setTimeout(function () { x.className = x.className.replace("none", "nonePlus"); }, 2500);
+                flagVisible = false
+                flag = false
+            }
+            console.log("activeUser")
+        }
+
+        function updateChat() {
+            if (now_no_active >= no_active_delay) { // Проверяем не превышен ли "предел активности" пользователя
+                x.className = "show"; // В реальности стоит убрать, а здесь дано как доказательство того, что всё работает
+                flagVisible = true
+                // var audio = new Audio();
+                // audio.src = "2.mp3";
+                // audio.play();
+                if (flag === false) {
+                    flag = true
+                    console.log(flag)
+                    document.getElementById("sound").play()
+
+                }
+                return;
+            }
+            console.log("updateChat", now_no_active, no_active_delay)
+            // /* Обновляем чат */ 
+        }
+    </script>
+    <script src="./index.js">
+
+    </script>
+</body>
+
+</html>
