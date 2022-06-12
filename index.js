@@ -1,7 +1,8 @@
 function Pass() {
-    document.querySelector(".cookies_fon").style.display = "block"
+    // document.querySelector(".cookies_fon").style.display = "block"
 
-    document.querySelector(".cookies").style.display = "block"
+    // document.querySelector(".cookies").style.display = "block"
+    Swal.fire('Any fool can use a compute')
 }
 setTimeout(Pass, 3000)
 
